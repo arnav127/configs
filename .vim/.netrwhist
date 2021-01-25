@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/arnav/comp/CodeForces/636-Div-3'
+let g:netrw_dirhist_4='/home/arnav/comp/CodeForces'
+let g:netrw_dirhist_3='/home/arnav/comp'
+let g:netrw_dirhist_2='/home/arnav'
+let g:netrw_dirhist_1='/home/arnav/proj/kernighan/chp1'
