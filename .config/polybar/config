@@ -1,0 +1,370 @@
+[bar/mybar]
+width = 100%
+height = 20
+radius = 0
+fixed-center = true
+
+background = #001f1f1f
+foreground = #302504
+;#c6c6c6
+
+line-size = 3
+line-color =
+
+border-size = 0
+border-color =
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 0
+module-margin-right = 1
+
+
+
+font-0 = "Source Code Pro Semibold:size=9;1"
+font-1 = "Font Awesome 5 Free:style=Solid:size=8;1"
+font-2 = "Font Awesome 5 Brands:size=8;1"
+
+;font-0 = NotoSans-Regular:size=8;0
+;font-1 = unifont:size=6;-3
+;font-2 = FontAwesome:size=8;-2
+;font-3 = NotoSans-Regular:size=8;-1
+;font-4 = MaterialIcons:size=10;-1
+;font-5 = Termsynu:size=8:antialias=false;0
+
+;font-0 = NotoSans-Regular:size=8;-1
+;font-1 = MaterialIcons:size=10;0
+;font-2 = Termsynu:size=8:antialias=false;-2
+;font-3 = FontAwesome:size=10;0
+
+modules-left = i3
+modules-center = wlan
+modules-right = pavc eth temp cpu_old memory battery clock powermenu
+
+tray-position = 
+;tray-padding =
+wm-restack = i3
+override-redirect = false
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #828282
+label-mode-background = #1f1f1f
+
+label-focused = %index%
+label-focused-background = #00266332
+;#5A9B9R2
+label-focused-foreground = #a34502
+;#ffffff
+;#1f1f1f
+label-focused-padding = 2
+
+label-unfocused = %index%
+label-unfocused-background = #0048a35a
+label-unfocused-foreground = #302504
+;#88c6c6c6
+label-unfocused-padding = 2
+
+label-visible = %index%
+label-visible-background = #0048a32a
+label-visible-foreground = #88c6c6c6
+label-visible-padding = 2
+
+label-urgent = %index%
+label-urgent-background = #BA2922
+label-urgent-padding = 2
+
+
+[module/music]
+type = custom/script
+exec = if [[ "$(playerctl status)" = "Playing" ]]; then ~/.config/polybar/music.sh; else echo -n ""; fi
+exec-if = [[ "$(playerctl status)" = "Playing" || "$(playerctl status)" = "Paused" ]] && echo "0"
+interval = 1
+click-left = playerctl play-pause
+click-right = playerctl next
+format = <label>
+
+[module/wlan]
+type = internal/network
+interface = wlo1
+interval = 3.0
+
+;format-connected = <ramp-signal> <label-connected>
+label-connected-foreground = #302504
+;#c6c6c6
+;#1f1f1f
+format-connected-background = #0048a35a
+;#8abeb7
+label-connected-padding = 0
+label-connected = %local_ip%  ↓ %downspeed:2%  ↑ %upspeed:2% 
+;label-connected = %essid%
+
+format-disconnected =
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = #302504
+;#c6c6c6
+
+
+[module/pavc]
+type = custom/script
+tail = true
+format-underline = ${colors.cyan}
+label-padding = 2
+label-foreground = ${colors.foreground}
+
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " listen
+click-right = exec pavucontrol &
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control --sink-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-sink
+scroll-up = pulseaudio-control --volume-max 120 up
+scroll-down = pulseaudio-control --volume-max 120 down
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
+
+[module/eth]
+type = internal/network
+interface = eno1
+interval = 3.0
+
+format-connected-padding = 2
+format-connected-foreground = #302504
+;#1f1f1f
+format-connected-background = #8abeb7
+format-connected-prefix = " "
+format-connected-prefix-foreground = #302504
+;#1f1f1f
+label-connected = %local_ip%
+
+format-disconnected =
+
+
+[module/temp]
+type = custom/script
+exec = ~/.config/polybar/cputemp.sh
+interval = 2
+
+
+[module/cpu-graph]
+type = internal/cpu
+interval = 0.5
+format = <label> <ramp-coreload>
+label = CPU
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+
+
+[module/cpu_old]
+type = internal/cpu
+interval = 0.2
+format = " <ramp-coreload>"
+format-foreground = #302504
+;#1f1f1f
+format-background = #0048a35a
+format-padding = 1
+ramp-coreload-0 = ▁
+ramp-coreload-0-foreground = #99302504
+;#99c6c6c6
+;#044d42
+ramp-coreload-1 = ▂
+ramp-coreload-1-foreground = #aa302504
+;#aac6c6c6
+ramp-coreload-2 = ▃
+ramp-coreload-2-foreground = #cc302504
+;#ccc6c6c6
+ramp-coreload-3 = ▄
+ramp-coreload-3-foreground = #dd302504
+;#ddc6c6c6
+ramp-coreload-4 = ▅
+ramp-coreload-4-foreground = #302504
+;#c6c6c6
+ramp-coreload-5 = ▆
+ramp-coreload-5-foreground = #302504
+;#c6c6c6
+ramp-coreload-6 = ▇
+ramp-coreload-6-foreground = #BA2922
+ramp-coreload-7 = █
+ramp-coreload-7-foreground = #BA2922
+ramp-coreload-font = 3
+
+[module/memory]
+type = internal/memory
+interval = 0.1
+format-prefix = " "
+format-background = #0048a35a
+format-foreground = #302504
+;#c6c6c6
+format-padding = 1
+label = %percentage_used:2%%
+
+[module/bat_old]
+type = internal/battery
+full-at = 99
+battery = BAT0
+adapter = ADP1
+poll-interval = 5
+label-full-foreground = #c6c6c6
+label-full-background = #0048a35a
+label-full-padding = 1
+label-charging-foreground = #c6c6c6
+label-charging-background = #008abeb7
+label-charging-padding = 1
+label-discharging-foreground = #c6c6c6
+label-discharging-background = #008abeb7
+label-discharging-padding = 1
+label-charging =   %percentage%%
+lable-discharging =  %percentage%%
+label-full =  %percentage%%
+
+[module/battery]
+type = internal/battery
+full-at = 99
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = #ffa900
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
+bar-capacity-fill = █
+bar-capacity-fill-foreground = #ddffffff
+bar-capacity-fill-font = 3
+bar-capacity-empty = █
+bar-capacity-empty-font = 3
+bar-capacity-empty-foreground = #44ffffff
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+
+[module/date]
+type = internal/date
+interval = 2
+date = %%{F#999}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+
+
+[module/clock]
+type = internal/date
+interval = 2
+
+date =
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-foreground = #302504
+;#c6c6c6
+format-background = #0048a35a
+format-padding = 2
+
+label = %date% %time%
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = #302504
+;#c6c6c6
+#48a35a
+label-close =  cancel
+label-close-foreground = #48a35a
+label-separator = |
+label-separator-foreground = #48a35a
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+menu-0-2 = log off
+menu-0-2-exec = menu-open-3
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = reboot
+
+menu-2-0 = power off
+menu-2-0-exec = poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+menu-3-0 = log off
+menu-3-0-exec = i3 exit logout
+menu-3-1 = cancel
+menu-3-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 50
+margin-bottom = 0
