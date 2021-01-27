@@ -140,10 +140,10 @@ ex ()
 
 
 
-if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]]
-then
-  	exec fish
-fi
+#if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]]
+#then
+#  	exec fish
+#fi
 
 export EDITOR='vim'
 export VISUAL='vim'
@@ -152,3 +152,5 @@ export LC_CTYPE="en_US.UTF-8"
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+exec zsh
