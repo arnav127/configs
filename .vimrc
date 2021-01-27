@@ -21,6 +21,7 @@ Plugin 'ap/vim-css-color'                           " Color previews for CSS
 Plugin 'tpope/vim-surround'                         " Change surrounding marks
 Plugin 'dracula/vim', {'name':'dracula'}
 Plugin 'mhinz/vim-startify'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 call vundle#end()		" required, all plugins must appear before this line.
 
 filetype plugin indent on    " required
