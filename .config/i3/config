@@ -18,9 +18,13 @@ bindsym $mod+Return exec alacritty
 
 # Window kill command
 bindsym $mod+Shift+q kill
+bindsym $mod+x kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id rofi -show run
+#bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id /home/arnav/.config/rofi/launchers/text/launcher.sh
+#bindsym $mod+Shift+d exec --no-startup-id rofi -show window
+
 
 # change focus
 bindsym $mod+j focus left
@@ -69,7 +73,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+#bindsym $mod+Shift+s sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -94,6 +98,7 @@ set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
+set $ws9 9
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -104,6 +109,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -114,6 +120,7 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -124,6 +131,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -157,7 +165,7 @@ for_window [class="Blueberry.py"] floating enable
 for_window [class="Qalculate-gtk"] floating enable
 for_window [class ="TelegramDesktop"] floating enable
 for_window [class="gnome-screenshot"] floating enable
-
+for_window [class="VirtualBox Machine"] floating disable
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -180,7 +188,8 @@ mode "$mode_system" {
     bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
     bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    bindsym Shift+s exec shutdown now
+    #bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
@@ -212,12 +221,15 @@ mode "resize" {
 }
 
 # Autostart applications
-exec --no-startup-id nitrogen --restore; sleep 1; 
-exec --no-startup-id picom -b;
+exec_always --no-startup-id feh --bg-scale ~/Documents/bg_16.jpg;
+#exec_always --no-startup-id pkill picom;
+exec_always --no-startup-id picom --experimental-backends -b;
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pamac-tray
-exec --no-startup-id clipit
+#exec --no-startup-id xfce4-power-manager
+#exec --no-startup-id pamac-tray
+#exec --no-startup-id clipit
+
+#exec_always --no-startup-id $HOME/mousefix.sh
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id $HOME/.config/polybar/bar_launch.sh
@@ -291,7 +303,9 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-
+#brightness control
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 bindsym $mod+Tab focus right
 
@@ -307,18 +321,27 @@ mode "moveit" {
 bindsym $mod+m focus floating; mode "moveit"
 
 bindsym $mod+Ctrl+r exec "alacritty -e ranger"
-bindsym $mod+Shift+n exec "alacritty -e nmtui"
-bindsym $mod+9 exec blurlock
-bindsym $mod+F2 exec chromium
-bindsym $mod+Ctrl+Return exec qutebrowser
-bindsym $mod+Shift+d exec "chromium --profile-directory=Default --app-id=imgohncinckhbblnlmaedahepnnpmdma"
-bindsym $mod+F3 exec pcmanfm
-bindsym $mod+Shift+Return exec pcmanfm
+#bindsym $mod+Shift+n exec "alacritty -e nmtui"
+bindsym $mod+F2 exec google-chrome
+bindsym $mod+Ctrl+Return exec "alacritty -e ranger"
+#bindsym $mod+Shift+d exec "chromium --profile-directory=Default --app-id=imgohncinckhbblnlmaedahepnnpmdma"
+bindsym $mod+F3 exec nautilus
+bindsym $mod+Shift+Return exec emacs
 bindsym $mod+T exec alacritty
 bindsym $mod+g exec gnome-screenshot
+bindsym $mod+p exec pavucontrol
 #bindsym $mod+Shift+n exec "firefox --kiosk 'https://www.onenote.com/notebooks\?auth\=2\&nf\=1'"
 
 assign [class="code-oss"] $ws6
 assign [class="discord"] $ws7
 for_window [class="Spotify"] move to workspace $ws8
+
+#exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 'libinput Natural Scrolling Enabled' 1
+exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 179 0
+exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 314 1
+exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 332 1
+exec_always xinput set-prop 'Logitech Wireless Mouse' 181 0.35 0 0 0 0.35 0 0 0 1
+
+bindsym $mod+Shift+d exec setxkbmap -layout us -variant colemak
+bindsym $mod+Shift+s exec setxkbmap -layout us
 
