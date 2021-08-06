@@ -4,8 +4,11 @@ height = 20
 radius = 0
 fixed-center = true
 
-background = #001f1f1f
-foreground = #302504
+background = #aa373332
+;#BF964B
+foreground = #BCAE8B
+;#D8DCDD
+;#302504
 ;#c6c6c6
 
 line-size = 3
@@ -20,15 +23,17 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 1
 
+;bottom = true
 
+font-0 = "Poppins:style=Medium:size=10;1"
+;font-0 = "Source Code Pro Semibold:size=9;1"
+;font-1 = "Font Awesome 5 Free:style=Solid:size=8;1"
+;font-1 = "Font Awesome 5 Free:style=Solid:size=8;1"
+;font-2 = "Font Awesome 5 Brands:size=8;1"
 
-font-0 = "Source Code Pro Semibold:size=9;1"
-font-1 = "Font Awesome 5 Free:style=Solid:size=8;1"
-font-2 = "Font Awesome 5 Brands:size=8;1"
-
-;font-0 = NotoSans-Regular:size=8;0
-;font-1 = unifont:size=6;-3
-;font-2 = FontAwesome:size=8;-2
+;font-1 = NotoSans-Regular:size=8;0
+font-1 = unifont:size=10;2
+font-2 = FontAwesome:size=10;2
 ;font-3 = NotoSans-Regular:size=8;-1
 ;font-4 = MaterialIcons:size=10;-1
 ;font-5 = Termsynu:size=8:antialias=false;0
@@ -36,13 +41,14 @@ font-2 = "Font Awesome 5 Brands:size=8;1"
 ;font-0 = NotoSans-Regular:size=8;-1
 ;font-1 = MaterialIcons:size=10;0
 ;font-2 = Termsynu:size=8:antialias=false;-2
-;font-3 = FontAwesome:size=10;0
+font-3 = FontAwesome:size=10;0
 
 modules-left = i3
 modules-center = wlan
-modules-right = pavc eth temp cpu_old memory battery clock powermenu
+modules-right = music eth temp cpu_old memory battery clock powermenu
 
-tray-position = 
+tray-position = right
+tray-detached = false
 ;tray-padding =
 wm-restack = i3
 override-redirect = false
@@ -57,40 +63,55 @@ index-sort = true
 wrapping-scroll = false
 
 label-mode-padding = 2
-label-mode-foreground = #828282
-label-mode-background = #1f1f1f
+;label-mode-foreground = #D8DCDD
+;#828282
+;label-mode-background = #aa373332
+;#001f1f1f
 
 label-focused = %index%
-label-focused-background = #00266332
+;label-focused-background = #aa373332
+;#00266332
 ;#5A9B9R2
-label-focused-foreground = #a34502
+label-focused-foreground = #ffffff
+;#a34502
 ;#ffffff
 ;#1f1f1f
-label-focused-padding = 2
+label-focused-padding = 4
 
 label-unfocused = %index%
-label-unfocused-background = #0048a35a
-label-unfocused-foreground = #302504
+;label-unfocused-background = #aa373332
+;#0048a35a
+;label-unfocused-foreground = #D8DCDD
+;#302504
 ;#88c6c6c6
 label-unfocused-padding = 2
 
 label-visible = %index%
-label-visible-background = #0048a32a
-label-visible-foreground = #88c6c6c6
+label-visible-background = #aa373332
+;#0048a32a
+;label-visible-foreground = #D8DCDD;
+#88c6c6c6
 label-visible-padding = 2
 
 label-urgent = %index%
 label-urgent-background = #BA2922
 label-urgent-padding = 2
 
+[module/lyt]
+type = custom/script
+exec = ~/.config/polybar/lyt.sh;
+interval = 2
+format-padding = 4
+format = <label>   
 
 [module/music]
 type = custom/script
-exec = if [[ "$(playerctl status)" = "Playing" ]]; then ~/.config/polybar/music.sh; else echo -n ""; fi
-exec-if = [[ "$(playerctl status)" = "Playing" || "$(playerctl status)" = "Paused" ]] && echo "0"
+exec = ~/.config/polybar/music.sh;
+;exec-if = [[ "$(playerctl status)" = "Playing" || "$(playerctl status)" = "Paused" ]] && echo "0"
 interval = 1
 click-left = playerctl play-pause
 click-right = playerctl next
+label-padding = 2
 format = <label>
 
 [module/wlan]
@@ -99,10 +120,12 @@ interface = wlo1
 interval = 3.0
 
 ;format-connected = <ramp-signal> <label-connected>
-label-connected-foreground = #302504
+;label-connected-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
 ;#1f1f1f
-format-connected-background = #0048a35a
+;format-connected-background = #aa373332
+;#0048a35a
 ;#8abeb7
 label-connected-padding = 0
 label-connected = %local_ip%  ↓ %downspeed:2%  ↑ %upspeed:2% 
@@ -115,7 +138,8 @@ ramp-signal-1 = 
 ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
-ramp-signal-foreground = #302504
+;ramp-signal-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
 
 
@@ -124,14 +148,14 @@ type = custom/script
 tail = true
 format-underline = ${colors.cyan}
 label-padding = 2
-label-foreground = ${colors.foreground}
+;label-foreground = ${colors.foreground}
 
-exec = pulseaudio-control --icons-volume " , " --icon-muted " " listen
+exec = pulseaudio --icons-volume " , " --icon-muted " " listen
 click-right = exec pavucontrol &
-click-left = pulseaudio-control togmute
-click-middle = pulseaudio-control --sink-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-sink
-scroll-up = pulseaudio-control --volume-max 120 up
-scroll-down = pulseaudio-control --volume-max 120 down
+click-left = pulseaudio togmute
+click-middle = pulseaudio --sink-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-sink
+scroll-up = pulseaudio --volume-max 120 up
+scroll-down = pulseaudio --volume-max 120 down
 
 
 [module/pulseaudio]
@@ -148,6 +172,7 @@ use-ui-max = true
 ; Interval for volume increase/decrease (in percent points)
 ; Default: 5
 interval = 5
+format-padding = 2
 
 [module/eth]
 type = internal/network
@@ -155,11 +180,14 @@ interface = eno1
 interval = 3.0
 
 format-connected-padding = 2
-format-connected-foreground = #302504
+;format-connected-foreground = #D8DCDD
+;#302504
 ;#1f1f1f
-format-connected-background = #8abeb7
+;format-connected-background = #aa373332
+;#8abeb7
 format-connected-prefix = " "
-format-connected-prefix-foreground = #302504
+;format-connected-prefix-foreground = #D8DCDD
+;#302504
 ;#1f1f1f
 label-connected = %local_ip%
 
@@ -169,8 +197,8 @@ format-disconnected =
 [module/temp]
 type = custom/script
 exec = ~/.config/polybar/cputemp.sh
-interval = 2
-
+interval = 3
+label-padding = 2
 
 [module/cpu-graph]
 type = internal/cpu
@@ -180,28 +208,32 @@ label = CPU
 
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 2
-ramp-coreload-0-foreground = #aaff77
+;ramp-coreload-0-foreground = #D8DCDD
+;#aaff77
 ramp-coreload-1 = ▂
 ramp-coreload-1-font = 2
-ramp-coreload-1-foreground = #aaff77
+;ramp-coreload-1-foreground = #D8DCDD
+;#aaff77
 ramp-coreload-2 = ▃
 ramp-coreload-2-font = 2
-ramp-coreload-2-foreground = #aaff77
+;ramp-coreload-2-foreground = #D8DCDD
+;#aaff77
 ramp-coreload-3 = ▄
 ramp-coreload-3-font = 2
-ramp-coreload-3-foreground = #aaff77
+;ramp-coreload-3-foreground = #D8DCDD
+;#aaff77
 ramp-coreload-4 = ▅
 ramp-coreload-4-font = 2
-ramp-coreload-4-foreground = #fba922
+;ramp-coreload-4-foreground = #fba922
 ramp-coreload-5 = ▆
 ramp-coreload-5-font = 2
-ramp-coreload-5-foreground = #fba922
+;ramp-coreload-5-foreground = #fba922
 ramp-coreload-6 = ▇
 ramp-coreload-6-font = 2
-ramp-coreload-6-foreground = #ff5555
+;ramp-coreload-6-foreground = #ff5555
 ramp-coreload-7 = █
 ramp-coreload-7-font = 2
-ramp-coreload-7-foreground = #ff5555
+;ramp-coreload-7-foreground = #ff5555
 
 
 
@@ -209,43 +241,55 @@ ramp-coreload-7-foreground = #ff5555
 type = internal/cpu
 interval = 0.2
 format = " <ramp-coreload>"
-format-foreground = #302504
+;format-foreground = #D8DCDD
+;#302504
 ;#1f1f1f
-format-background = #0048a35a
-format-padding = 1
+;format-background = #aa373332
+;#0048a35a
+format-padding = 3
 ramp-coreload-0 = ▁
-ramp-coreload-0-foreground = #99302504
+;ramp-coreload-0-foreground = #D8DCDD
+;#99302504
 ;#99c6c6c6
 ;#044d42
 ramp-coreload-1 = ▂
-ramp-coreload-1-foreground = #aa302504
+;ramp-coreload-1-foreground = #D8DCDD
+;#aa302504
 ;#aac6c6c6
 ramp-coreload-2 = ▃
-ramp-coreload-2-foreground = #cc302504
+;ramp-coreload-2-foreground = #D8DCDD
+;#cc302504
 ;#ccc6c6c6
 ramp-coreload-3 = ▄
-ramp-coreload-3-foreground = #dd302504
+;ramp-coreload-3-foreground = #D8DCDD
+;#dd302504
 ;#ddc6c6c6
 ramp-coreload-4 = ▅
-ramp-coreload-4-foreground = #302504
+;ramp-coreload-4-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
 ramp-coreload-5 = ▆
-ramp-coreload-5-foreground = #302504
+;ramp-coreload-5-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
 ramp-coreload-6 = ▇
-ramp-coreload-6-foreground = #BA2922
+;ramp-coreload-6-foreground = #D8DCDD
+;#BA2922
 ramp-coreload-7 = █
-ramp-coreload-7-foreground = #BA2922
+;ramp-coreload-7-foreground = #D8DCDD
+;#BA2922
 ramp-coreload-font = 3
 
 [module/memory]
 type = internal/memory
 interval = 0.1
 format-prefix = " "
-format-background = #0048a35a
-format-foreground = #302504
+;format-background = #aa373332
+;#0048a35a
+;format-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
-format-padding = 1
+format-padding = 3
 label = %percentage_used:2%%
 
 [module/bat_old]
@@ -254,14 +298,18 @@ full-at = 99
 battery = BAT0
 adapter = ADP1
 poll-interval = 5
-label-full-foreground = #c6c6c6
-label-full-background = #0048a35a
+label-padding = 6
+;label-full-foreground = #D8DCDD
+;#c6c6c6
+;label-full-background = #0048a35a
 label-full-padding = 1
-label-charging-foreground = #c6c6c6
-label-charging-background = #008abeb7
+;label-charging-foreground = #D8DCDD
+;#c6c6c6
+;label-charging-background = #008abeb7
 label-charging-padding = 1
-label-discharging-foreground = #c6c6c6
-label-discharging-background = #008abeb7
+;label-discharging-foreground = #D8DCDD
+;#c6c6c6
+;label-discharging-background = #008abeb7
 label-discharging-padding = 1
 label-charging =   %percentage%%
 lable-discharging =  %percentage%%
@@ -274,11 +322,13 @@ full-at = 99
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
-
+format-padding = 3
 ramp-capacity-0 = 
-ramp-capacity-0-foreground = #f53c3c
+;ramp-capacity-0-foreground = #D8DCDD
+;#f53c3c
 ramp-capacity-1 = 
-ramp-capacity-1-foreground = #ffa900
+;ramp-capacity-1-foreground = #D8DCDD
+;#ffa900
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
@@ -286,11 +336,13 @@ ramp-capacity-4 = 
 bar-capacity-width = 10
 bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
 bar-capacity-fill = █
-bar-capacity-fill-foreground = #ddffffff
+;bar-capacity-fill-foreground = #D8DCDD
+;#ddffffff
 bar-capacity-fill-font = 3
 bar-capacity-empty = █
 bar-capacity-empty-font = 3
-bar-capacity-empty-foreground = #44ffffff
+;bar-capacity-empty-foreground = #D8DCDD
+;#44ffffff
 
 animation-charging-0 = 
 animation-charging-1 = 
@@ -317,10 +369,12 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = 
-format-foreground = #302504
+;format-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
-format-background = #0048a35a
-format-padding = 2
+;format-background = #aa373332
+;#0048a35a
+format-padding = 4
 
 label = %date% %time%
 
@@ -329,16 +383,19 @@ type = custom/menu
 
 expand-right = true
 
-format-spacing = 1
+format-spacing = 3
 
 label-open = 
-label-open-foreground = #302504
+;label-open-foreground = #D8DCDD
+;#302504
 ;#c6c6c6
 #48a35a
 label-close =  cancel
-label-close-foreground = #48a35a
+;label-close-foreground = #D8DCDD
+;#48a35a
 label-separator = |
-label-separator-foreground = #48a35a
+;label-separator-foreground = #D8DCDD
+;#48a35a
 
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
