@@ -22,7 +22,7 @@ bindsym $mod+x kill
 
 # start program launcher
 #bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec --no-startup-id /home/arnav/.config/rofi/launchers/text/launcher.sh
+bindsym $mod+d exec --no-startup-id rofi -show combi
 #bindsym $mod+Shift+d exec --no-startup-id rofi -show window
 
 
@@ -287,7 +287,7 @@ mode "$mode_gaps_outer" {
 }
 
 # set power-manager and volume control
-exec --no-startup-id mate-power-manager
+# exec --no-startup-id mate-power-manager
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2db- unmute
@@ -322,14 +322,14 @@ bindsym $mod+m focus floating; mode "moveit"
 
 bindsym $mod+Ctrl+r exec "alacritty -e ranger"
 #bindsym $mod+Shift+n exec "alacritty -e nmtui"
-bindsym $mod+F2 exec google-chrome
+bindsym $mod+F2 exec google-chrome-stable
 bindsym $mod+Ctrl+Return exec "alacritty -e ranger"
 #bindsym $mod+Shift+d exec "chromium --profile-directory=Default --app-id=imgohncinckhbblnlmaedahepnnpmdma"
-bindsym $mod+F3 exec nautilus
+bindsym $mod+F3 exec dolphin
 bindsym $mod+Shift+Return exec emacs
 bindsym $mod+T exec alacritty
-bindsym $mod+g exec gnome-screenshot
-bindsym $mod+p exec pavucontrol
+bindsym $mod+g exec spectacle
+bindsym $mod+p exec pavucontrol -t 5
 #bindsym $mod+Shift+n exec "firefox --kiosk 'https://www.onenote.com/notebooks\?auth\=2\&nf\=1'"
 
 assign [class="code-oss"] $ws6
@@ -337,11 +337,14 @@ assign [class="discord"] $ws7
 for_window [class="Spotify"] move to workspace $ws8
 
 #exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 'libinput Natural Scrolling Enabled' 1
-exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 179 0
-exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 314 1
-exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 332 1
-exec_always xinput set-prop 'Logitech Wireless Mouse' 181 0.35 0 0 0 0.35 0 0 0 1
+exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 'Device Enabled' 0
+#exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 314 1
+#exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 332 1
+exec_always xinput set-prop 'Logitech Wireless Mouse' 'Coordinate Transformation Matrix' 0.6 0 0 0 0.6 0 0 0 1
 
-bindsym $mod+Shift+d exec setxkbmap -layout us -variant colemak
-bindsym $mod+Shift+s exec setxkbmap -layout us
+#bindsym $mod+Shift+d exec setxkbmap -layout us -variant colemak
+#bindsym $mod+Shift+s exec setxkbmap -layout us
 
+bindsym Pause exec i3-msg kill
+
+bindsym $mod+Shift+d exec --no-startup-id ~/.config/conf_edit.sh
