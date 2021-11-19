@@ -8,20 +8,20 @@ call vundle#begin()		" required, all plugins must appear after this line.
 
 Plugin 'gmarik/Vundle.vim'							" Vundle
 Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
-Plugin 'vifm/vifm.vim'
-Plugin 'vimwiki/vimwiki'                            " Vim wiki
+" Plugin 'vifm/vifm.vim'
+" Plugin 'vimwiki/vimwiki'                            " Vim wiki
 Plugin 'scrooloose/nerdtree'						" added nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons'
-Plugin 'frazrepo/vim-rainbow'
-Plugin 'vim-python/python-syntax'
-Plugin 'jreybert/vimagit'
-Plugin 'severin-lemaignan/vim-minimap'
-Plugin 'ap/vim-css-color'                           " Color previews for CSS
+" Plugin 'frazrepo/vim-rainbow'
+" Plugin 'vim-python/python-syntax'
+" Plugin 'jreybert/vimagit'
+" Plugin 'severin-lemaignan/vim-minimap'
+" Plugin 'ap/vim-css-color'                           " Color previews for CSS
 Plugin 'tpope/vim-surround'                         " Change surrounding marks
-Plugin 'dracula/vim', {'name':'dracula'}
+" Plugin 'dracula/vim', {'name':'dracula'}
 Plugin 'mhinz/vim-startify'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+" Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 call vundle#end()		" required, all plugins must appear before this line.
 
 filetype plugin indent on    " required
@@ -30,12 +30,12 @@ filetype plugin indent on    " required
 " Remap ESC to ii
 :imap ii <Esc>
 
-let g:lightline = {
-	\ 'colorsceme': 'dracula',
-	\ }
+" let g:lightline = {
+" 	\ 'colorsceme': 'dracula',
+" 	\ }
 
 set laststatus=2
-colorscheme dracula
+" colorscheme dracula
 set t_Co=256
 
 syntax enable
