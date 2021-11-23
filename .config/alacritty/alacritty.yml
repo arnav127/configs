@@ -99,8 +99,8 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Consolas
-    #family: "MesloLGS NF"
+    family: "MesloLGS NF"
+    #family: "IBM Plex Mono"
     #family: "Terminus (TTF) "
     #family: Hermit
     # The `style` can be specified to pick a specific face.
@@ -112,7 +112,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: IBM Plex Mono
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -123,7 +123,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: IBM Plex Mono
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -140,7 +140,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 8
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -227,15 +227,15 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+background_opacity: 0.75
 
 #background_opacity: 0.95
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 # When set to `true`, selected text will be copied to the primary clipboard.
-#save_to_clipboard: false
+save_to_clipboard: false
 # Allow terminal applications to change Alacritty's window title.
-#dynamic_title: true
+dynamic_title: true
 #cursor:
 # Cursor style
 #
@@ -243,7 +243,7 @@ background_opacity: 1.0
 #   - ▇ Block
 #   - _ Underline
 #   - | Beam
-#style: Block
+style: Beam
 # If this is `true`, the cursor will be rendered as a hollow box when the
 # window is not focused.
 #unfocused_hollow: true
@@ -258,8 +258,8 @@ background_opacity: 1.0
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
+shell:
+  program: /bin/zsh
 #  args:
 #    - --login
 # Startup directory
