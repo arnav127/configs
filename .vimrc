@@ -10,7 +10,7 @@ Plugin 'gmarik/Vundle.vim'							" Vundle
 Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
 " Plugin 'vifm/vifm.vim'
 " Plugin 'vimwiki/vimwiki'                            " Vim wiki
-Plugin 'scrooloose/nerdtree'						" added nerdtree
+" Plugin 'scrooloose/nerdtree'						" added nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons'
 " Plugin 'frazrepo/vim-rainbow'
@@ -22,6 +22,7 @@ Plugin 'tpope/vim-surround'                         " Change surrounding marks
 " Plugin 'dracula/vim', {'name':'dracula'}
 Plugin 'mhinz/vim-startify'
 " Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'preservim/nerdtree'
 call vundle#end()		" required, all plugins must appear before this line.
 
 filetype plugin indent on    " required
@@ -40,6 +41,7 @@ set t_Co=256
 
 syntax enable
 set number
+set relativenumber
 let g:rehash256=1
 
 set noshowmode
@@ -48,14 +50,20 @@ set expandtab
 set smarttab
 set shiftwidth=4
 set tabstop=4
+set clipboard^=unnamed,unnamedplus
 
-map <C-n> :NerdTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle %<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+" map <C-n> :NerdTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable='►'
 let g:NERDTreeDirArrowCollapsible='▼'
-let NERDTreeShowLineNumbers=1
-let NERDTreeShowHidden=1
-let NERDTreeMinimalUI=1
-let g:NERDTreeWinSize=38
+"let NERDTreeShowLineNumbers=1
+"let NERDTreeShowHidden=1
+"let NERDTreeMinimalUI=1
+"let g:NERDTreeWinSize=38
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
@@ -111,3 +119,6 @@ nnoremap <F2> :w<CR>
 imap <F2> <ESC>:w<CR>i
 nnoremap <F5> :make <CR>
 nnoremap <F3> :wq <CR>
+nnoremap <F4> :q <CR>
+imap <F4> <ESC> :q <CR>
+
