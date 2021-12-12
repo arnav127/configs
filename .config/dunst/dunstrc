@@ -1,0 +1,27 @@
+[global]
+font = IBM Plex Mono 9
+
+[urgency_low]
+frame_color = "#3c3836"
+#"#3B7C87"
+foreground = "#282828"
+#"#3B7C87"
+background = "#3c3836"
+#background = "#2B313C"
+timeout = 4
+
+[urgency_normal]
+frame_color = "#32302f"
+#"#5B8234"
+foreground = "#a89984"
+background = "#282828"
+#background = "#2B313C"
+timeout = 6
+
+[urgency_critical]
+frame_color = "#B7472A"
+foreground = "#B7472A"
+background = "#191311"
+#background = "#2B313C"
+timeout = 8
+
