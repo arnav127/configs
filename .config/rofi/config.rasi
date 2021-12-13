@@ -1,0 +1,18 @@
+configuration {
+    font:				"IBM Plex Mono 10";
+    show-icons:				true;
+    icon-theme:				"Arc-X-D";
+    display-drun:			"Apps";
+    drun-display-format:		"{name}";
+    scroll-method:			0;
+    disable-history:			false;
+    sidebar-mode:			false;
+}
+
+
+@theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
+
+listview {
+    lines:                          10;
+    columns:                        2;
+}
