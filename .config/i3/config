@@ -10,21 +10,25 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-font xft:URWGothic-Book 11
+font pango:IBM Plex Mono 11
 
 floating_modifier $mod
 
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec konsole
 
 # Window kill command
 bindsym $mod+Shift+q kill
 bindsym $mod+x kill
+bindsym Pause exec i3-msg kill
+bindsym --release $mod+Shift+x exec xkill
+bindsym --whole-window button2 kill
 
 # start program launcher
-#bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec --no-startup-id rofi -show combi
-#bindsym $mod+Shift+d exec --no-startup-id rofi -show window
+bindsym $mod+d exec --no-startup-id rofi -show run
 
+# scripts
+bindsym $mod+Shift+d exec --no-startup-id ~/.config/conf_edit.sh
+bindsym $mod+Shift+m exec --no-startup-id ~/.scripts/manpages.sh
 
 # change focus
 bindsym $mod+j focus left
@@ -36,6 +40,8 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+bindsym $mod+Tab focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -163,9 +169,14 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [class="Blueberry.py"] floating enable
 for_window [class="Qalculate-gtk"] floating enable
-for_window [class ="TelegramDesktop"] floating enable
+# for_window [class ="TelegramDesktop"] floating enable
 for_window [class="gnome-screenshot"] floating enable
 for_window [class="VirtualBox Machine"] floating disable
+
+assign [class="code"] $ws6
+assign [class="discord"] $ws7
+for_window [class="Spotify"] move to workspace $ws8
+
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -204,35 +215,46 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 4 px or 4 ppt
-        bindsym Down resize grow height 4 px or 4 ppt
-        bindsym Up resize shrink height 4 px or 4 ppt
-        bindsym Right resize grow width 4 px or 4 ppt
+        bindsym Left resize shrink width 40 px or 3 ppt
+        bindsym Down resize grow height 40 px or 3 ppt
+        bindsym Up resize shrink height 40 px or 3 ppt
+        bindsym Right resize grow width 40 px or 3 ppt
 
         # exit resize mode: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
+bindsym $mod+m focus floating; mode "moveit"
+mode "moveit" {
+    bindsym Up move up 20px
+    bindsym Left move left 20px
+    bindsym Down move down 20px
+    bindsym Right move right 20px
+    bindsym $mod+m mode "default"
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
 # Autostart applications
 exec_always --no-startup-id feh --bg-scale ~/Documents/bg_16.jpg;
 #exec_always --no-startup-id pkill picom;
 exec_always --no-startup-id picom --experimental-backends -b;
-exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet 
 #exec --no-startup-id xfce4-power-manager
 #exec --no-startup-id pamac-tray
 #exec --no-startup-id clipit
-
-#exec_always --no-startup-id $HOME/mousefix.sh
+exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 'libinput Natural Scrolling Enabled' 1
+exec_always xinput set-prop 'Logitech Wireless Mouse' 'Coordinate Transformation Matrix' 0.6 0 0 0 0.6 0 0 0 1
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id $HOME/.config/polybar/bar_launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Theme colors
 client.focused #c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7
@@ -244,8 +266,8 @@ client.placeholder #c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7
 client.background #1f1f1f
 
 # Gaps
-gaps inner 10
-gaps outer -10
+gaps inner 0
+gaps outer 0
 
 smart_gaps on
 
@@ -307,44 +329,22 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
-bindsym $mod+Tab focus right
 
-mode "moveit" {
-    bindsym Up move up 20px
-    bindsym Left move left 20px
-    bindsym Down move down 20px
-    bindsym Right move right 20px
-    bindsym $mod+m mode "default"
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
-}
-bindsym $mod+m focus floating; mode "moveit"
-
-bindsym $mod+Ctrl+r exec "alacritty -e ranger"
-#bindsym $mod+Shift+n exec "alacritty -e nmtui"
 bindsym $mod+F2 exec google-chrome-stable
-bindsym $mod+Ctrl+Return exec "alacritty -e ranger"
-#bindsym $mod+Shift+d exec "chromium --profile-directory=Default --app-id=imgohncinckhbblnlmaedahepnnpmdma"
-bindsym $mod+F3 exec dolphin
-bindsym $mod+Shift+Return exec emacs
-bindsym $mod+T exec alacritty
-bindsym $mod+g exec spectacle
+bindsym $mod+Ctrl+Return exec "konsole -e ranger"
+bindsym $mod+F3 exec pcmanfm
+bindsym $mod+F4 exec code
+bindsym $mod+Shift+Return exec qutebrowser
+bindsym $mod+T exec konsole
+bindsym $mod+g exec spectacle -b
 bindsym $mod+p exec pavucontrol -t 5
-#bindsym $mod+Shift+n exec "firefox --kiosk 'https://www.onenote.com/notebooks\?auth\=2\&nf\=1'"
 
-assign [class="code-oss"] $ws6
-assign [class="discord"] $ws7
-for_window [class="Spotify"] move to workspace $ws8
-
-#exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 'libinput Natural Scrolling Enabled' 1
-exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 'Device Enabled' 0
-#exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 314 1
-#exec_always xinput set-prop 'ETPS/2 Elantech Touchpad' 332 1
-exec_always xinput set-prop 'Logitech Wireless Mouse' 'Coordinate Transformation Matrix' 0.6 0 0 0 0.6 0 0 0 1
+# re-display the last notification
+bindsym $mod+grave exec dunstctl history-pop
 
 #bindsym $mod+Shift+d exec setxkbmap -layout us -variant colemak
 #bindsym $mod+Shift+s exec setxkbmap -layout us
 
-bindsym Pause exec i3-msg kill
+exec export PATH=/home/arnav/go/bin:$PATH
 
-bindsym $mod+Shift+d exec --no-startup-id ~/.config/conf_edit.sh
+bindsym $mod+F5 exec feh ~/schedule.jpg 
