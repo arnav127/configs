@@ -2,7 +2,7 @@
 # Script to choose config file to edit
 
 TERMINAL="konsole"
-EDITOR="vim"
+EDITOR="emacs"
 declare -A config
 
 # add config files here
@@ -19,6 +19,7 @@ config[dunst]=~/.config/dunst/dunstrc
 choice=$(printf "%s\n" "${!config[@]}" | sort | rofi -dmenu -i -p "Config" -auto-select | cut -f 1)
 
 if [ -n "$choice" ]; 
-    then $TERMINAL -e $EDITOR ${config[$choice]} 
+    then $EDITOR ${config[$choice]}
+#    then $TERMINAL -e $EDITOR ${config[$choice]}
 fi
 
