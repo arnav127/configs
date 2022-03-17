@@ -331,9 +331,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 
 bindsym $mod+F2 exec google-chrome-stable
-bindsym $mod+Ctrl+Return exec "konsole -e ranger"
+bindsym $mod+Ctrl+Return exec emacs
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+F4 exec code
+bindsym $mod+F5 exec emacs
 bindsym $mod+Shift+Return exec qutebrowser
 bindsym $mod+T exec konsole
 bindsym $mod+g exec spectacle -b
@@ -347,4 +348,4 @@ bindsym $mod+grave exec dunstctl history-pop
 
 exec export PATH=/home/arnav/go/bin:$PATH
 
-bindsym $mod+F5 exec feh ~/schedule.jpg 
+#bindsym $mod+F6 exec feh ~/schedule.jpg
