@@ -25,3 +25,5 @@ background = "#191311"
 #background = "#2B313C"
 timeout = 8
 
+[shortcuts]
+context = ctrl+shift+period
